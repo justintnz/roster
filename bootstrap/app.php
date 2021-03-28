@@ -23,9 +23,8 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
-
-// $app->withEloquent();
+$app->withFacades();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +94,7 @@ $app->configure('lighthouse');
 // $app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
+
 $app->register(\Nuwave\Lighthouse\LighthouseServiceProvider::class);
 $app->register(\Nuwave\Lighthouse\Pagination\PaginationServiceProvider::class);
 $app->register(\Nuwave\Lighthouse\Validation\ValidationServiceProvider::class);
