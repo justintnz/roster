@@ -17,13 +17,14 @@ class CreateEmployeeRoleTable extends Migration
             $table->id();
             $table->unsignedInteger('employee_id');
             $table->foreign('employee_id')
-                  ->references('id')
-                  ->on('employees')->onDelete('cascade');
+                ->references('id')
+                ->on('employees')->onDelete('cascade');
             $table->unsignedInteger('role_id');
             $table->foreign('role_id')
                 ->references('id')
                 ->on('role')->onDelete('cascade');
-            });
+            $table->double('performance', 3, 2)->default(0.0);
+        });
     }
 
     /**

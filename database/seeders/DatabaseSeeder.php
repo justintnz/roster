@@ -104,10 +104,16 @@ class DatabaseSeeder extends Seeder
                 );
             }
 
-            if (rand(0, 1) > 0) {
+            $emp->roles()->attach(
+                $emp->prim_role,
+                ['performance' => rand(4, 10) / 2]
+            );
+
+            if (rand(0, 2) > 0) {
                 $roles = \App\Models\Role::inRandomOrder()->limit(2)->get();
                 $emp->roles()->attach(
-                    $roles->random(rand(0, $roles->count()))->pluck('id')->toArray()
+                    $roles->random(rand(0, $roles->count()))->pluck('id')->toArray(),
+                    ['performance' => rand(0, 10) / 2]
                 );
             }
 

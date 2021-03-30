@@ -17,6 +17,7 @@ type Location {
 type Role {
     id: ID
     name: String!
+    performance:Float
 }
 
 type Leave {

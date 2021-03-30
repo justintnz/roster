@@ -20,6 +20,17 @@ class Employee extends Model
     {
         return $this->belongsToMany(Role::class);
     }
+    public function getRoles()
+    {
+        $roles = \DB::table('employee_role')
+            ->join('roles', 'employee_role.role_id', '=', 'roles.id')
+            ->select('employee_role.*', 'roles.name')
+            ->where('employee_role.employee_id', $this->id)
+            ->get()->toArray();
+
+        //$roles = [['id' => 1, 'name' => 'MyRole', 'performance' => 5]];
+        return $roles;
+    }
     public function locations()
     {
         return $this->belongsToMany(Location::class);

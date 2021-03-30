@@ -59,7 +59,7 @@ class Employee
 
                 'locations'         => $oneEmp->locations,
                 'qualifications'    => $oneEmp->qualifications,
-                'roles'             => $oneEmp->roles,
+                'roles'             => $oneEmp->getRoles(),
                 'best_match'        => $oneEmp->role_id == $args['role'] ? 1 : 0,
                 'week_hours'        => $oneEmp->weekHours($reqDate),
 
@@ -101,7 +101,7 @@ class Employee
 
             'locations'         => $oneEmp->locations,
             'qualifications'    => $oneEmp->qualifications,
-            'roles'             => $oneEmp->roles,
+            'roles'             => $oneEmp->getRoles(),
             'leaves'            => $oneEmp->leaves,
             'shifts'            => $oneEmp->shifts,
             'week_hours'        => $oneEmp->weekHours($reqDate),
