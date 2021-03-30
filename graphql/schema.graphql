@@ -29,7 +29,7 @@ type Shift {
     id: ID!
 }
 
-type Employee {
+type AvailableEmployee {
     id: ID!
     name: String!
     profile_picture: String
@@ -38,6 +38,9 @@ type Employee {
     locations:[Location!]
     qualifications: [Qualification!]
     roles:[Role!]
+    best_match:Int
+    week_hours:Int
+
 }
 
 type Profile {
@@ -63,7 +66,7 @@ type Query {
         location:Int!
         start_time:String!
         shift_length:Float!
-    ): [Employee!]
+    ): [AvailableEmployee!]
     @field(resolver: "App\\GraphQL\\Queries\\Employee@getAvailable")
 
     profile(

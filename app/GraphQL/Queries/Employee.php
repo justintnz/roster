@@ -39,13 +39,14 @@ class Employee
 
         $employeeList = \App\Models\Employee::whereNotIn('id', $onLeave)
             ->whereNotIn('id', $onShift)
-            ->where('location_id', $args['location']);
+            ->where('location_id', $args['location'])
+            ->take(20)->get();
+        //$employeeList = $employeeList->where('role_id', $args['role']);
 
-        if (isset($args['role'])) {
-            $employeeList = $employeeList->where('role_id', $args['role']);
-        }
+        // later referred by best_match
+        $args['role'] = $args['role'] ?? 0;
+        $reqDate =  $args['date'] ?? date('Y-m-d', time());
 
-        $employeeList = $employeeList->take(20)->get();
 
         $data = [];
         foreach ($employeeList as $oneEmp) {
@@ -59,9 +60,15 @@ class Employee
                 'locations'         => $oneEmp->locations,
                 'qualifications'    => $oneEmp->qualifications,
                 'roles'             => $oneEmp->roles,
+                'best_match'        => $oneEmp->role_id == $args['role'] ? 1 : 0,
+                'week_hours'        => $oneEmp->weekHours($reqDate),
 
             ];
         }
+        if ($args['role'] > 0)
+            usort($data, function ($a, $b) {
+                return $b['best_match'] - $a['best_match'];
+            });
         return ($data);
     }
 
@@ -97,7 +104,7 @@ class Employee
             'roles'             => $oneEmp->roles,
             'leaves'            => $oneEmp->leaves,
             'shifts'            => $oneEmp->shifts,
-            'week_hours'         => $oneEmp->weekHours($reqDate),
+            'week_hours'        => $oneEmp->weekHours($reqDate),
 
         ];
     }
