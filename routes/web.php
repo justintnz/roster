@@ -21,7 +21,6 @@ $router->get('/', function () use ($router) {
 
 $router->get('leave', function () {
     // $onleave = \App\Models\Leave::where('date', '=','2021-03-31')->get();
-    \Cache::flush();
 
     $emp = \App\Models\Employee::find(60);
     echo $emp->weekHours('2021-04-01');

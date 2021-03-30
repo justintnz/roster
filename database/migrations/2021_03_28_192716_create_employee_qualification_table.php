@@ -17,13 +17,14 @@ class CreateEmployeeQualificationTable extends Migration
             $table->id();
             $table->unsignedInteger('employee_id');
             $table->foreign('employee_id')
-                  ->references('id')
-                  ->on('employees')->onDelete('cascade');
+                ->references('id')
+                ->on('employees')->onDelete('cascade');
             $table->unsignedInteger('qualification_id');
             $table->foreign('qualification_id')
                 ->references('id')
                 ->on('qualifications')->onDelete('cascade');
-            });
+            $table->tinyInteger('is_active')->default(0);
+        });
     }
 
     /**

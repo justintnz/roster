@@ -100,12 +100,14 @@ class DatabaseSeeder extends Seeder
             if (rand(0, 2) > 0) {
                 $qualifications = \App\Models\Qualification::inRandomOrder()->limit(3)->get();
                 $emp->qualifications()->attach(
-                    $qualifications->random(rand(0, $qualifications->count()))->pluck('id')->toArray()
+                    $qualifications->random(rand(0, $qualifications->count()))->pluck('id')->toArray(),
+                    ['is_active' => rand(0, 1)]
+
                 );
             }
 
             $emp->roles()->attach(
-                $emp->prim_role,
+                $emp->role_id,
                 ['performance' => rand(4, 10) / 2]
             );
 
