@@ -2,6 +2,8 @@
 
 /** @var \Laravel\Lumen\Routing\Router $router */
 
+use Illuminate\Support\Facades\App;
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -15,4 +17,12 @@
 
 $router->get('/', function () use ($router) {
     return $router->app->version();
+});
+
+$router->get('leave', function () {
+    // $onleave = \App\Models\Leave::where('date', '=','2021-03-31')->get();
+    \Cache::flush();
+
+    $emp = \App\Models\Employee::find(60);
+    echo $emp->weekHours('2021-04-01');
 });

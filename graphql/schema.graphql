@@ -5,18 +5,72 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
 type Qualification {
-    id: ID!
+    id: ID
     name: String!
+}
+
+type Location {
+    id: ID
+    name: String!
+}
+
+type Role {
+    id: ID
+    name: String!
+}
+
+type Leave {
+    id: ID
+    date: String!
+}
+
+
+type Shift {
+    id: ID!
 }
 
 type Employee {
     id: ID!
     name: String!
-    email: String!
-    phone: String!
+    profile_picture: String
+    prim_location:Int
+    prim_role:Int
+    locations:[Location!]
     qualifications: [Qualification!]
+    roles:[Role!]
 }
 
-type Query {
-    employee: [Employee!]
+type Profile {
+    id: ID!
+    name: String
+    profile_picture: String
+    prim_location:Int
+    prim_role:Int
+    locations:[Location!]
+    qualifications: [Qualification!]
+    roles:[Role!]
+    leaves:[Leave!]
+    shifts:[Shift!]
+    week_hours:Int
 }
+
+
+
+
+type Query {
+    available_employees(
+        role:Int
+        location:Int!
+        start_time:String!
+        shift_length:Float!
+    ): [Employee!]
+    @field(resolver: "App\\GraphQL\\Queries\\Employee@getAvailable")
+
+    profile(
+            id:Int!
+            date:String
+        ): Profile!
+        @field(resolver: "App\\GraphQL\\Queries\\Employee@getProfile")
+}
+
+

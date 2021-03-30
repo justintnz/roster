@@ -16,8 +16,11 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->string('name',50);
-            $table->string('phone',20);
-            $table->string('email',100)->unique();
+            $table->string('profile_picture',250);
+            $table->unsignedInteger('role_id')->index(); // primary role
+            $table->foreign('role_id')->references('id')->on('roles');
+            $table->unsignedInteger('location_id'); // primary location
+            $table->foreign('location_id')->references('id')->on('locations');
             $table->timestamps();
         });
     }

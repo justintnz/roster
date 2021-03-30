@@ -15,7 +15,7 @@ class CreateLeavesTable extends Migration
     {
         Schema::create('leaves', function (Blueprint $table) {
             $table->id();
-            $table->string('date');
+            $table->string('date',10)->index();
             $table->unsignedInteger('employee_id');
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->timestamps();

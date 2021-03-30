@@ -10,11 +10,17 @@ class EmployeeFactory extends Factory
     protected $model = Employee::class;
 
     public function definition(): array
-    {
+    {      
+        $randRole = \App\Models\Role::inRandomOrder()->limit(1)->first();
+        $randLocation = \App\Models\Location::inRandomOrder()->limit(1)->first();
+
+   
     	return [
     	    'name' => $this->faker->name,
-            'email' =>  $this->faker->unique()->safeEmail,
-            'phone' =>  $this->faker->phoneNumber,
+            'profile_picture' =>  '/media/default_avatar.jpg',
+            'role_id' => $randRole->id ,
+            'location_id'=>$randLocation->id ,
+            
     	];
     }
 }

@@ -119,4 +119,6 @@ $app->router->group([
     require __DIR__.'/../routes/web.php';
 });
 
+\DB::connection()->enableQueryLog();
+
 return $app;
