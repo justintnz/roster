@@ -20,16 +20,21 @@ class Employee
             throw new \Exception('Missing role, location, start_time or shift_length ');
         }
 
-        $shiftDate = date("Y-m-d", strtotime($args['start_time']));
+        $startTime = strtotime($args['start_time']);
+        $endTime   = date('Y-m-d H:i:s', $startTime + $args['shift_length'] * 60 * 60);
+        $startTime = date('Y-m-d H:i:s', $startTime);
+
+        $shiftDateStart = date("Y-m-d", strtotime($startTime));
+        $shiftDateEnd = date("Y-m-d", strtotime($endTime));
+
         $onLeave   = \App\Models\Leave::select(\DB::raw('group_concat(employee_id) as employee_ids'))
-            ->where('date', '=', $shiftDate)
+            ->where('date', '=', $shiftDateStart)
+            ->orWhere('date', '=', $shiftDateEnd)
             ->first();
 
         $onLeave = array_unique(explode(',', $onLeave->employee_ids));
 
-        $startTime = strtotime($args['start_time']);
-        $endTime   = date('Y-m-d H:i:s', $startTime + $args['shift_length'] * 60 * 60);
-        $startTime = date('Y-m-d H:i:s', $startTime);
+
         $onShift   = \App\Models\Shift::select(\DB::raw('group_concat(employee_id) as employee_ids'))
             ->whereBetween('start_time', [$startTime, $endTime])
             ->orWhereBetween('end_time', [$startTime, $endTime])

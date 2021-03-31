@@ -15,14 +15,14 @@ class CreateRoleLocationTable extends Migration
     {
         Schema::create('role_location', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('role_id');
+            $table->unsignedBigInteger('role_id');
             $table->foreign('role_id')
-            ->references('id')
-            ->on('role')->onDelete('cascade');
-            $table->unsignedInteger('location_id');
+                ->references('id')
+                ->on('roles')->onDelete('cascade');
+            $table->unsignedBigInteger('location_id');
             $table->foreign('location_id')
-            ->references('id')
-            ->on('locations')->onDelete('cascade');
+                ->references('id')
+                ->on('locations')->onDelete('cascade');
         });
     }
 

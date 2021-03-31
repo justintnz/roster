@@ -15,15 +15,15 @@ class CreateRoleQualificationTable extends Migration
     {
         Schema::create('role_qualification', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('role_id');
+            $table->unsignedBigInteger('role_id');
             $table->foreign('role_id')
                 ->references('id')
                 ->on('roles')->onDelete('cascade');
-                $table->unsignedInteger('qualification_id');
-                $table->foreign('qualification_id')
-                    ->references('id')
-                    ->on('qualifications')->onDelete('cascade');    
-            });
+            $table->unsignedBigInteger('qualification_id');
+            $table->foreign('qualification_id')
+                ->references('id')
+                ->on('qualifications')->onDelete('cascade');
+        });
     }
 
     /**

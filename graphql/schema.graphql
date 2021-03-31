@@ -60,8 +60,6 @@ type Profile {
 }
 
 
-
-
 type Query {
     available_employees(
         role:Int

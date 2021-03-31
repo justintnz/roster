@@ -15,15 +15,15 @@ class CreateEmployeeLocationTable extends Migration
     {
         Schema::create('employee_location', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('employee_id');
+            $table->unsignedBigInteger('employee_id');
             $table->foreign('employee_id')
-                  ->references('id')
-                  ->on('employees')->onDelete('cascade');
-            $table->unsignedInteger('location_id');
+                ->references('id')
+                ->on('employees')->onDelete('cascade');
+            $table->unsignedBigInteger('location_id');
             $table->foreign('location_id')
                 ->references('id')
-                ->on('location')->onDelete('cascade');
-            });
+                ->on('locations')->onDelete('cascade');
+        });
     }
 
     /**

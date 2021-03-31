@@ -22,6 +22,7 @@ $router->get('/', function () use ($router) {
 $router->get('leave', function () {
     // $onleave = \App\Models\Leave::where('date', '=','2021-03-31')->get();
 
-    $emp = \App\Models\Employee::find(60);
+    $emp = \App\Models\Employee::find(1);
+    echo "Hi";
     echo $emp->weekHours('2021-04-01');
 });

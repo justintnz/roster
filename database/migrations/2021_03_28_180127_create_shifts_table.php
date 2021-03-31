@@ -17,11 +17,11 @@ class CreateShiftsTable extends Migration
             $table->id();
             $table->dateTime('start_time');
             $table->dateTime('end_time');
-            $table->unsignedInteger('location_id');
+            $table->unsignedBigInteger('location_id');
             $table->foreign('location_id')->references('id')->on('locations');
-            $table->unsignedInteger('role_id');
+            $table->unsignedBigInteger('role_id');
             $table->foreign('role_id')->references('id')->on('roles');
-            $table->unsignedInteger('employee_id')->nullable();
+            $table->unsignedBigInteger('employee_id')->nullable();
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->timestamps();
         });
